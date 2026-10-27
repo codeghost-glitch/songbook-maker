@@ -103,6 +103,35 @@ impl Sections {
     }
 }
 
+/// What is drawn around each song cell.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum Borders {
+    /// full grid, the default
+    All,
+    /// horizontal rules only, one line per row
+    Rows,
+    /// no grid at all, use with zebra rows
+    None,
+}
+
+impl Borders {
+    pub fn parse(s: &str) -> Option<Borders> {
+        match s {
+            "all" | "grid" => Some(Borders::All),
+            "rows" | "lines" => Some(Borders::Rows),
+            "none" | "off" => Some(Borders::None),
+            _ => None,
+        }
+    }
+    pub fn name(self) -> &'static str {
+        match self {
+            Borders::All => "all",
+            Borders::Rows => "rows",
+            Borders::None => "none",
+        }
+    }
+}
+
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum SortKey {
     Title,
@@ -166,6 +195,12 @@ pub struct Options {
     pub num_bg: Option<Color>,
     pub title_bg: Option<Color>,
     pub artist_bg: Option<Color>,
+    pub borders: Borders,
+    /// draw titles in upper case
+    pub uppercase: bool,
+    /// tint every second row
+    pub zebra: bool,
+    pub zebra_color: Color,
 }
 
 impl Default for Options {
@@ -208,6 +243,10 @@ impl Default for Options {
             num_bg: None,
             title_bg: None,
             artist_bg: None,
+            borders: Borders::All,
+            uppercase: false,
+            zebra: false,
+            zebra_color: Color::rgb8(0xF1, 0xF4, 0xF8),
         }
     }
 }
@@ -461,7 +500,9 @@ pub fn render(songs: &[Song], opt: &Options) -> Result<(Pdf, Summary), String> {
                     Item::Letter(ch) => {
                         let mut txt = ch.to_string();
                         pdf.fill_rect(col_x[c] - 1.0, y_top - 1.0, total_w - 2.0, ROW_H + 2.0, opt.section_bg);
-                        pdf.stroke_rect(col_x[c] - 1.0, y_top - 1.0, total_w - 2.0, ROW_H + 2.0, Color::BLACK, 0.2);
+                        if opt.borders != Borders::None {
+                            pdf.stroke_rect(col_x[c] - 1.0, y_top - 1.0, total_w - 2.0, ROW_H + 2.0, opt.section_color, 0.2);
+                        }
                         let (fitted, sz) = truncate_to_width(&txt, sz_letter, total_w - 2.0, true);
                         txt = fitted;
                         pdf.text(
@@ -476,23 +517,39 @@ pub fn render(songs: &[Song], opt: &Options) -> Result<(Pdf, Summary), String> {
                     }
                     Item::Song(i) => {
                         let song = &songs[i];
-                        let mut cx = col_x[c];
-                        for ci in 0..3 {
-                            if cells[ci] <= 0.0 {
-                                continue;
+                        if opt.zebra && r % 2 == 1 {
+                            pdf.fill_rect(col_x[c], y_top, total_w, ROW_H, opt.zebra_color);
+                        }
+                        match opt.borders {
+                            Borders::All => {
+                                let mut cx = col_x[c];
+                                for ci in 0..3 {
+                                    if cells[ci] <= 0.0 {
+                                        continue;
+                                    }
+                                    pdf.stroke_rect(cx, y_top, cells[ci], ROW_H, opt.line_color, 0.2);
+                                    cx += cells[ci];
+                                }
                             }
-                            pdf.stroke_rect(cx, y_top, cells[ci], ROW_H, opt.line_color, 0.2);
-                            cx += cells[ci];
+                            Borders::Rows => {
+                                pdf.line(col_x[c], y_top, col_x[c] + total_w, y_top, opt.line_color, 0.2);
+                            }
+                            Borders::None => {}
                         }
                         let y_bot = y_top + ROW_H;
+                        let title: std::borrow::Cow<str> = if opt.uppercase {
+                            song.title.to_uppercase().into()
+                        } else {
+                            std::borrow::Cow::Borrowed(song.title.as_str())
+                        };
                         if opt.order == Order::Tna {
-                            draw_text_cell(&mut pdf, &song.title, col_x[c] + cells[0], cells[1], y_bot, sz_title, opt.title_color, opt.bold);
+                            draw_text_cell(&mut pdf, &title, col_x[c] + cells[0], cells[1], y_bot, sz_title, opt.title_color, opt.bold);
                             let (txt, sz) = truncate_to_width(&song.num.to_string(), sz_num, cells[0] - 1.0, opt.bold);
                             pdf.text(&txt, col_x[c] + cells[0] / 2.0, y_top + ROW_H / 2.0 + 0.45 * sz, sz, opt.num_color, opt.bold, Align::Center);
                         } else {
                             let (txt, sz) = truncate_to_width(&song.num.to_string(), sz_num, cells[0] - 1.0, opt.bold);
                             pdf.text(&txt, col_x[c] + cells[0] / 2.0, y_top + ROW_H / 2.0 + 0.45 * sz, sz, opt.num_color, opt.bold, Align::Center);
-                            draw_text_cell(&mut pdf, &song.title, col_x[c] + cells[0], cells[1], y_bot, sz_title, opt.title_color, opt.bold);
+                            draw_text_cell(&mut pdf, &title, col_x[c] + cells[0], cells[1], y_bot, sz_title, opt.title_color, opt.bold);
                         }
                         if !opt.no_artist {
                             draw_text_cell(&mut pdf, &song.artist, col_x[c] + cells[0] + cells[1], cells[2], y_bot, sz_artist, opt.artist_color, opt.bold);

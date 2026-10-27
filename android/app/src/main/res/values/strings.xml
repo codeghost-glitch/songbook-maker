@@ -10,6 +10,8 @@
 
     <string name="section_layout">02  Page layout</string>
     <string name="paper">Paper</string>
+    <string name="style">Style</string>
+    <string name="choose_style">Choose a style</string>
     <string name="columns">Columns</string>
     <string name="margin">Margin</string>
     <string name="sections">Sections</string>

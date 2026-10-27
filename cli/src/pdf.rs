@@ -153,6 +153,17 @@ impl Pdf {
         }
     }
 
+    pub fn line(&mut self, x0: f32, y0: f32, x1: f32, y1: f32, color: Color, lw: f32) {
+        let (fy0, fy1) = (self.flip(y0), self.flip(y1));
+        let op = format!(
+            "{} {} {} RG {} w {} {} m {} {} l S\n",
+            n(color.r), n(color.g), n(color.b), n(lw), n(x0), n(fy0), n(x1), n(fy1)
+        );
+        if let Some(p) = self.pages.last_mut() {
+            p.ops.push_str(&op);
+        }
+    }
+
     pub fn stroke_rect(&mut self, x: f32, y: f32, w: f32, h: f32, color: Color, lw: f32) {
         let fy = self.flip(y + h);
         let op = format!(

@@ -44,6 +44,11 @@ songbook <INPUT> [OPTIONS]
 | `--order <ORDER>` | `auto` (default), `nta`, `tna`, `atn` |
 | `--sort <KEY>` | `title` (default), `artist`, `number` |
 | `--sections <MODE>` | `continuous` (default), `newpage`, `none` |
+| `--style <NAME>` | `default` (default), `platinum`, `tj` - see [styles](#styles) |
+| `--borders <MODE>` | `all` (default), `rows`, `none` |
+| `--zebra`, `--no-zebra` | tint every second row |
+| `--uppercase` | print titles in upper case |
+| `--zebra-color <HEX>` | zebra tint (default `F1F4F8`) |
 | `--no-artist` | drop the artist column |
 | `--name <TEXT>` | text in the middle of the top band |
 | `--header-left`, `--header-right` | text in the top corners |
@@ -66,6 +71,31 @@ songbook examples/songs.txt --paper letter --columns 2 --sections newpage --mirr
 songbook examples/songs400.txt --logo examples/logo.png --footer-center "Songbook"
 ```
 
+## Styles
+
+Three looks ship with the engine. A style is applied before the other options, so
+anything set explicitly wins - `--style tj --columns 3` keeps the TJ look on three
+columns.
+
+| Style | What it changes |
+|---|---|
+| `default` | full grid, light bands, black text on white |
+| `platinum` | Letter paper, 3 columns, dark header and footer bands, hairline row rules, upper case titles, muted artist |
+| `tj` | A4, 4 dense columns, no grid, zebra rows, black header band |
+
+```bash
+songbook songs.txt --style platinum -o platinum.pdf
+songbook songs.txt --style tj --name "TJ Media" -o tj.pdf
+```
+
+<p>
+  <img src="style-platinum.png" width="330" alt="Platinum style">
+  <img src="style-tj.png" width="330" alt="TJ Media style">
+</p>
+
+Every part of a style is a normal option, so you can build your own from the table
+above: `--borders none --zebra --zebra-color E8EEF7 --band-color 0A0A0A`.
+
 ## Android app
 
 The app is a single screen: pick the file, set the layout, tap **Create PDF**.
@@ -86,7 +116,8 @@ footer_center=Songbook
 ```
 
 Keys: `paper`, `margin`, `columns`, `order`, `sort`, `sections`, `artist`,
-`page_numbers`, `mirror`, `bold`, `scale`, `name`, `header_left`, `header_right`,
+`page_numbers`, `mirror`, `bold`, `scale`, `name`, `style`, `borders`, `zebra`,
+`uppercase`, `zebra_color`, `header_left`, `header_right`,
 `header_center`, `footer_center`, `band_opacity`, `num_size`, `title_size`,
 `artist_size`, `letter_size`, `header_size`, `footer_size`, `page_color`,
 `line_color`, `band_color`, `num_color`, `title_color`, `artist_color`.

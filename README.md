@@ -30,6 +30,8 @@ accounts, no ads, no network access: everything happens on your machine.
 * A4, Letter, Long and Legal paper, five margins, two to four columns
 * Header and footer bands with your own texts, optional logo
 * Text that shrinks to fit its cell instead of spilling into the next song
+* Three print styles - classic grid, Platinum, and a dense TJ Media listing - plus
+  every colour, border and size as a plain option
 * Plain text in, PDF out - import errors are listed line by line
 
 ## Quick start

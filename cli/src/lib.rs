@@ -15,7 +15,103 @@ use std::fmt::Write as _;
 
 use import::Order;
 use pdf::Color;
-use render::{Options, Paper, Sections, SortKey};
+use render::{Borders, Options, Paper, Sections, SortKey};
+
+/// Named looks accepted by `style=` and `--style`.
+pub const STYLES: [&str; 3] = ["default", "platinum", "tj"];
+
+/// The stock look, spelled out so `style=default` resets a previous preset.
+const STYLE_DEFAULT: &str = "\
+paper=a4
+margin=0.25
+columns=3
+borders=all
+uppercase=0
+zebra=0
+line_color=BDBDBD
+band_color=000000
+band_opacity=34
+header_color=000000
+footer_color=000000
+section_bg=EEEEEE
+section_color=000000
+num_color=000000
+title_color=000000
+artist_color=000000
+num_size=7.5
+title_size=8
+artist_size=6.5
+letter_size=11
+header_size=9
+footer_size=6.5
+";
+
+/// Platinum: dark bands, hairline row rules, upper case titles.
+const STYLE_PLATINUM: &str = "\
+paper=letter
+margin=0.30
+columns=3
+borders=rows
+uppercase=1
+zebra=0
+line_color=C9CED6
+band_color=14181F
+band_opacity=235
+header_color=FFFFFF
+footer_color=FFFFFF
+section_bg=14181F
+section_color=FFFFFF
+num_color=14181F
+title_color=14181F
+artist_color=4B5563
+num_size=7.4
+title_size=7.6
+artist_size=6.3
+letter_size=10
+header_size=9.5
+";
+
+/// TJ Media: dense four column listing, no grid, zebra rows, black band.
+const STYLE_TJ: &str = "\
+paper=a4
+margin=0.25
+columns=4
+borders=none
+uppercase=0
+zebra=1
+zebra_color=EEF2F7
+line_color=DFE4EA
+band_color=0A0A0A
+band_opacity=255
+header_color=FFFFFF
+footer_color=FFFFFF
+section_bg=0A0A0A
+section_color=FFFFFF
+num_color=0A0A0A
+title_color=111111
+artist_color=6B7280
+num_size=7.2
+title_size=7.4
+artist_size=6.2
+letter_size=10
+";
+
+/// Apply a named look. Later settings always win over the preset.
+pub fn apply_style(opt: &mut Options, name: &str) -> Result<(), String> {
+    let body = match name.trim() {
+        "default" | "classic" | "none" => STYLE_DEFAULT,
+        "platinum" => STYLE_PLATINUM,
+        "tj" | "tjmedia" | "tj-media" => STYLE_TJ,
+        other => {
+            return Err(format!(
+                "style: '{}' is not one of {}",
+                other,
+                STYLES.join(", ")
+            ))
+        }
+    };
+    apply_config(opt, body)
+}
 
 /// Result of one render, plus the numbers the UI wants to show.
 #[derive(Debug)]
@@ -91,6 +187,13 @@ pub fn apply_config(opt: &mut Options, cfg: &str) -> Result<(), String> {
             "num_bg" => opt.num_bg = Some(hex(key, value)?),
             "title_bg" => opt.title_bg = Some(hex(key, value)?),
             "artist_bg" => opt.artist_bg = Some(hex(key, value)?),
+            "style" => apply_style(opt, value)?,
+            "borders" => {
+                opt.borders = Borders::parse(value).ok_or_else(|| format!("borders: '{}'", value))?
+            }
+            "uppercase" => opt.uppercase = flag(value),
+            "zebra" => opt.zebra = flag(value),
+            "zebra_color" => opt.zebra_color = hex(key, value)?,
             other => return Err(format!("unknown config key '{}'", other)),
         }
     }
@@ -219,6 +322,48 @@ name=Test
         assert_eq!(o.sections, Sections::NewPage);
         assert!(o.mirror);
         assert_eq!(o.name, "Test");
+    }
+
+    #[test]
+    fn styles_change_the_look() {
+        let mut o = Options::default();
+        apply_config(&mut o, "style=platinum").unwrap();
+        assert_eq!(o.borders, Borders::Rows);
+        assert!(o.uppercase);
+        assert_eq!(o.columns, 3);
+        assert_eq!(o.paper, Paper::Letter);
+
+        // explicit keys win over the preset
+        apply_config(&mut o, "style=tj\ncolumns=2").unwrap();
+        assert_eq!(o.borders, Borders::None);
+        assert!(o.zebra);
+        assert_eq!(o.columns, 2);
+
+        // the stock preset puts everything back
+        apply_config(&mut o, "style=default").unwrap();
+        let d = Options::default();
+        assert_eq!(o.borders, d.borders);
+        assert_eq!(o.zebra, d.zebra);
+        assert_eq!(o.columns, d.columns);
+        assert_eq!(o.paper, d.paper);
+        assert_eq!(o.title_size, d.title_size);
+        assert!(!o.uppercase);
+    }
+
+    #[test]
+    fn every_style_renders() {
+        for style in STYLES {
+            let cfg = format!("style={}", style);
+            let out = render_with_config("1|A|B\n2|C|D\n", &cfg).unwrap_or_else(|e| panic!("{}: {}", style, e));
+            assert!(out.pdf.starts_with(b"%PDF-"));
+            assert_eq!(out.songs, 2);
+        }
+    }
+
+    #[test]
+    fn unknown_style_is_rejected() {
+        let mut o = Options::default();
+        assert!(apply_config(&mut o, "style=vaporwave").is_err());
     }
 
     #[test]

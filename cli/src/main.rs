@@ -7,7 +7,8 @@ use std::process::ExitCode;
 
 use songbook::import::{self, Order};
 use songbook::pdf::Color;
-use songbook::render::{self, Options, Paper, Sections, SortKey};
+use songbook::render::{self, Borders, Options, Paper, Sections, SortKey};
+use songbook::apply_style;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -29,6 +30,11 @@ OPTIONS:
         --order <ORDER>        auto | nta | tna | atn              [default: auto]
         --sort <KEY>           title | artist | number             [default: title]
         --sections <MODE>      continuous | newpage | none         [default: continuous]
+        --style <NAME>         default | platinum | tj            [default: default]
+        --borders <MODE>       all | rows | none                   [default: all]
+        --zebra / --no-zebra   tint every second row
+        --uppercase            print titles in upper case
+        --zebra-color <HEX>    zebra tint                        [default: F1F4F8]
         --no-artist            drop the artist column (artist songbook look)
         --name <TEXT>          text in the middle of the top band
         --header-left <TEXT>   text in the top left corner
@@ -55,6 +61,13 @@ OPTIONS:
         --header-color <HEX>   --footer-color <HEX>
         --num-bg <HEX>         --title-bg <HEX>  --artist-bg <HEX>
         --quiet                only print errors
+
+STYLES:
+    default     the stock look: full grid, light bands
+    platinum    dark header and footer, hairline row rules, upper case titles
+    tj          four dense columns, no grid, zebra rows, black header
+
+    A style is applied first, so any other option overrides the values it sets.
     -h, --help                 show this help
     -V, --version              show the version
 
@@ -94,6 +107,12 @@ fn parse_args() -> Result<Option<Args>, String> {
         return Ok(None);
     }
     let mut opt = Options::default();
+    // --style sets a whole look, so it is applied up front: anything on the
+    // command line after it still wins, wherever it appears.
+    if let Some(pos) = argv.iter().position(|a| a == "--style") {
+        let name = argv.get(pos + 1).ok_or("--style needs a value (default, platinum, tj)")?;
+        apply_style(&mut opt, name)?;
+    }
     let mut input: Option<PathBuf> = None;
     let mut output: Option<PathBuf> = None;
     let mut quiet = false;
@@ -133,6 +152,18 @@ fn parse_args() -> Result<Option<Args>, String> {
                 let v = next_value(&mut it, arg)?;
                 opt.sections = Sections::parse(v).ok_or_else(|| format!("--sections: unknown mode '{}'", v))?;
             }
+            "--style" => {
+                it.next();
+            }
+            "--borders" => {
+                let v = next_value(&mut it, arg)?;
+                opt.borders =
+                    Borders::parse(v).ok_or_else(|| format!("--borders: unknown mode '{}'", v))?;
+            }
+            "--zebra" => opt.zebra = true,
+            "--no-zebra" => opt.zebra = false,
+            "--uppercase" => opt.uppercase = true,
+            "--zebra-color" => opt.zebra_color = parse_color(&mut it, arg)?,
             "--no-artist" => opt.no_artist = true,
             "--name" => opt.name = next_value(&mut it, arg)?.clone(),
             "--header-left" => opt.header_left = next_value(&mut it, arg)?.clone(),

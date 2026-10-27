@@ -28,6 +28,20 @@ class MainActivity : Activity() {
 
     private class Choice(val id: String, val label: String)
 
+    /** A named look: the engine owns the styling, the app mirrors its layout. */
+    private class Style(
+        val id: String,
+        val label: String,
+        val paper: String,
+        val columns: Int,
+        val margin: Float
+    )
+
+    private val styles = listOf(
+        Style("default", "Classic", "a4", 3, 0.25f),
+        Style("platinum", "Platinum", "letter", 3, 0.30f),
+        Style("tj", "TJ Media", "a4", 4, 0.25f)
+    )
     private val papers = listOf(
         Choice("a4", "A4  8.3 x 11.7 in"),
         Choice("letter", "Letter  8.5 x 11 in"),
@@ -51,6 +65,7 @@ class MainActivity : Activity() {
         Choice("number", "Number")
     )
 
+    private var style = 0
     private var paper = 0
     private var margin = 1
     private var column = 1
@@ -67,12 +82,14 @@ class MainActivity : Activity() {
     private lateinit var tvStatus: TextView
     private lateinit var tvRejected: TextView
     private lateinit var tvResult: TextView
+    private lateinit var tvStyle: TextView
     private lateinit var tvPaper: TextView
     private lateinit var tvColumns: TextView
     private lateinit var tvMargin: TextView
     private lateinit var tvSections: TextView
     private lateinit var tvSort: TextView
     private lateinit var bannerRejected: View
+    private lateinit var rowStyle: View
     private lateinit var rowPaper: View
     private lateinit var rowColumns: View
     private lateinit var rowMargin: View
@@ -96,12 +113,14 @@ class MainActivity : Activity() {
         tvStatus = findViewById(R.id.tvStatus)
         tvRejected = findViewById(R.id.tvRejected)
         tvResult = findViewById(R.id.tvResult)
+        tvStyle = findViewById(R.id.tvStyle)
         tvPaper = findViewById(R.id.tvPaper)
         tvColumns = findViewById(R.id.tvColumns)
         tvMargin = findViewById(R.id.tvMargin)
         tvSections = findViewById(R.id.tvSections)
         tvSort = findViewById(R.id.tvSort)
         bannerRejected = findViewById(R.id.bannerRejected)
+        rowStyle = findViewById(R.id.rowStyle)
         rowPaper = findViewById(R.id.rowPaper)
         rowColumns = findViewById(R.id.rowColumns)
         rowMargin = findViewById(R.id.rowMargin)
@@ -121,6 +140,12 @@ class MainActivity : Activity() {
         btnCreate.setOnClickListener { createPdf() }
         btnShare.setOnClickListener { sharePdf() }
 
+        rowStyle.setOnClickListener {
+            choose(getString(R.string.choose_style), styles.map { it.label }, style) {
+                style = it
+                applyStyle()
+            }
+        }
         rowPaper.setOnClickListener {
             choose(getString(R.string.choose_paper), papers.map { it.label }, paper) {
                 paper = it
@@ -149,6 +174,15 @@ class MainActivity : Activity() {
     }
 
     // ------------------------------------------------------------ pickers
+
+    /** Selecting a look also moves the layout pickers to its defaults. */
+    private fun applyStyle() {
+        val s = styles[style]
+        papers.indexOfFirst { it.id == s.paper }.takeIf { it >= 0 }?.let { paper = it }
+        column = (s.columns - 2).coerceIn(0, columns.size - 1)
+        margins.indexOfFirst { kotlin.math.abs(it - s.margin) < 0.001f }
+            .takeIf { it >= 0 }?.let { margin = it }
+    }
 
     private fun choose(title: String, entries: List<String>, selected: Int, onPick: (Int) -> Unit) {
         AlertDialog.Builder(this)
@@ -295,6 +329,7 @@ class MainActivity : Activity() {
     }
 
     private fun config(): String = buildString {
+        appendLine("style=" + styles[style].id)
         appendLine("paper=" + papers[paper].id)
         appendLine("margin=" + margins[margin])
         appendLine("columns=" + (column + 2))
@@ -368,6 +403,7 @@ class MainActivity : Activity() {
     // --------------------------------------------------------------- chrome
 
     private fun updateLabels() {
+        tvStyle.text = styles[style].label
         tvPaper.text = papers[paper].label
         tvColumns.text = columns[column].label
         tvMargin.text = String.format(java.util.Locale.ROOT, "%.2f in", margins[margin])
@@ -377,6 +413,7 @@ class MainActivity : Activity() {
 
     /** Rows expose "label: value" so TalkBack reads the current setting. */
     private fun updateAccessibility() {
+        rowStyle.contentDescription = getString(R.string.style) + ": " + styles[style].label
         rowPaper.contentDescription = getString(R.string.paper) + ": " + papers[paper].label
         rowColumns.contentDescription = getString(R.string.columns) + ": " + columns[column].label
         rowMargin.contentDescription = getString(R.string.margin) + ": " +
