@@ -1,0 +1,22 @@
+[package]
+name = "songbook-rs"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+description = "Turn a CSV/TXT karaoke song list into a printable songbook PDF"
+license = "MIT"
+repository = "https://github.com/codeghost-glitch/songbook-rs"
+keywords = ["karaoke", "songbook", "pdf", "csv", "cli"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "songbook"
+path = "src/main.rs"
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

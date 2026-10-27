@@ -1,0 +1,400 @@
+10000|Paper Lullaby (Unplugged)|(unknown)
+10001|Secret Kiss|Rihanna
+10002|Frozen Angel|Pet Shop Boys
+10003|Electric Fire|Bon Jovi
+10004|Sweet Road|Madonna
+10005|Burning Heart|New Order
+10006|Last Runner|Pet Shop Boys
+10007|Electric Paradise|ABBA
+10008|Frozen River|Ed Sheeran
+10009|Summer Kiss|Katy Perry
+10010|Endless Dream|Guns N' Roses
+10011|Blue Runner|Depeche Mode
+10012|Silent Storm|Bruno Mars
+10013|Sweet Angel (Live)|Madonna
+10014|Paper Rain|Mariah Carey
+10015|Burning River|Lady Gaga
+10016|Blue Song|Muse
+10017|Sweet Dream|Elton John
+10018|Secret Fire|Whitney Houston
+10019|Broken Sky|Celine Dion, Elton John
+10020|Midnight Dream|Adele
+10021|Silent Heart|Metallica
+10022|Last Mirror|Mariah Carey
+10023|Dancing Hotel|Beyonce
+10024|Little Letter|Madonna
+10025|Sweet Letter|ABBA
+10026|Neon Fire (Remix)|Katy Perry
+10027|Broken Dream|Ed Sheeran
+10028|Paper Angel|Rihanna
+10029|Burning Kiss|Bon Jovi
+10030|Frozen Kiss|Oasis
+10031|Neon Mirror|Nirvana
+10032|Last Shadow|Adele
+10033|Midnight Rain|Depeche Mode
+10034|Sweet Dream|Adele
+10035|Electric Mirror|New Order
+10036|Secret Fire|Adele
+10037|Golden Kiss|(unknown)
+10038|Little Dream|Pet Shop Boys, Dolly Parton
+10039|Sweet Mirror (Live)|Elton John
+10040|Dancing Kiss|Depeche Mode
+10041|Crazy Dream|New Order
+10042|Wild Train|Pet Shop Boys
+10043|Paper Road|Depeche Mode
+10044|Velvet Hotel|Oasis
+10045|Last Ghost|U2
+10046|Sweet Song|Pet Shop Boys
+10047|Crazy Kiss|Coldplay
+10048|Burning Kiss|Celine Dion
+10049|Velvet Paradise|Madonna
+10050|Neon Heart|Prince
+10051|Broken Heart|Muse
+10052|Little Song (Unplugged)|Lady Gaga
+10053|Neon Paradise|Radiohead
+10054|Sweet Storm|Rihanna
+10055|Dancing Road|Bruno Mars
+10056|Velvet Lullaby|Pet Shop Boys
+10057|Endless River|Michael Jackson, Adele
+10058|Silent Dream|Elton John
+10059|Little Shadow|Bon Jovi
+10060|Crazy Heart|Adele
+10061|Electric Sky|Shania Twain
+10062|Frozen Hotel|Oasis
+10063|Dancing Train|Oasis
+10064|Paper Letter|Blur
+10065|Secret Road (Live)|Queen
+10066|Velvet Train|Elvis Presley
+10067|Summer Dream|New Order
+10068|Dancing Angel|Elton John
+10069|Sweet Letter|Oasis
+10070|Dancing River|Bon Jovi
+10071|Burning Train|Adele
+10072|Golden Letter|Garth Brooks
+10073|Dancing Angel|Elton John
+10074|Neon Dream|(unknown)
+10075|Secret Dream|Pet Shop Boys
+10076|Last Mirror|Depeche Mode, ABBA
+10077|Endless River|Madonna
+10078|Dancing Fire (Acoustic)|Mariah Carey
+10079|Blue Mirror|Depeche Mode
+10080|Paper Runner|Guns N' Roses
+10081|Burning River|Blur
+10082|Frozen Dream|Elvis Presley
+10083|Endless River|Metallica
+10084|Midnight Song|Nirvana
+10085|Velvet Paradise|Radiohead
+10086|Little Dream|Shania Twain
+10087|Sweet Road|Pet Shop Boys
+10088|Silent Storm|Coldplay
+10089|Blue Runner|Radiohead
+10090|Crazy Letter|Whitney Houston
+10091|Little Kiss (Unplugged)|Beyonce
+10092|Silent Mirror|Bruno Mars
+10093|Secret Letter|Adele
+10094|Golden Road|Radiohead
+10095|Wild Heart|Elton John, Michael Jackson
+10096|Electric Fire|Bon Jovi
+10097|Velvet Rain|Adele
+10098|Neon Mirror|Blur
+10099|Velvet Letter|Pet Shop Boys
+10100|Paper Letter|Elton John
+10101|Summer Rain|New Order
+10102|Summer Rain|The Cure
+10103|Wild Sky|The Cure
+10104|Midnight Road (Unplugged)|Guns N' Roses
+10105|Silent Dream|Michael Jackson
+10106|Crazy Road|Ed Sheeran
+10107|Broken Runner|Prince
+10108|Burning Train|Elton John
+10109|Silent Kiss|Metallica
+10110|Little Ghost|ABBA
+10111|Velvet Lullaby|(unknown)
+10112|Electric Song|Michael Jackson
+10113|Wild Lullaby|Blur
+10114|Frozen Paradise|Coldplay, Whitney Houston
+10115|Crazy River|Mariah Carey
+10116|Last Road|Bon Jovi
+10117|Paper Kiss (Live)|Celine Dion
+10118|Burning Hotel|Muse
+10119|Blue Runner|Johnny Cash
+10120|Silent Fire|Nirvana
+10121|Silent Song|Celine Dion
+10122|Dancing Sky|Pulp
+10123|Blue Rain|Queen
+10124|Wild Storm|Madonna
+10125|Summer Runner|Dolly Parton
+10126|Burning Shadow|Michael Jackson
+10127|Velvet Dream|Adele
+10128|Dancing Shadow|Adele
+10129|Electric Lullaby|Dolly Parton
+10130|Golden Angel (Remix)|Blur
+10131|Frozen Runner|Radiohead
+10132|Secret River|Bruno Mars
+10133|Paper Storm|Suede, Tina Turner
+10134|Burning Ghost|Blur
+10135|Frozen Lullaby|Lady Gaga
+10136|Sweet Mirror|Pet Shop Boys
+10137|Silent Sky|U2
+10138|Burning Storm|Michael Jackson
+10139|Secret Angel|Beyonce
+10140|Neon Lullaby|Nirvana
+10141|Frozen Dream|New Order
+10142|Last Dream|Pulp
+10143|Summer Storm (Unplugged)|Pulp
+10144|Secret Fire|Radiohead
+10145|Dancing Ghost|Elton John
+10146|Burning Runner|Mariah Carey
+10147|Last Rain|Katy Perry
+10148|Velvet Angel|(unknown)
+10149|Blue Shadow|Metallica
+10150|Frozen Letter|Prince
+10151|Silent Shadow|Pet Shop Boys
+10152|Midnight Rain|Oasis, Queen
+10153|Summer Kiss|U2
+10154|Crazy Dream|Tina Turner
+10155|Blue Train|Katy Perry
+10156|Endless Angel (Live)|Radiohead
+10157|Secret Fire|Muse
+10158|Endless Rain|Beyonce
+10159|Frozen Shadow|Queen
+10160|Last Shadow|Blur
+10161|Endless Ghost|Pulp
+10162|Silent Lullaby|Adele
+10163|Frozen Kiss|Pulp
+10164|Endless Hotel|Oasis
+10165|Crazy Train|Rihanna
+10166|Blue Paradise|Johnny Cash
+10167|Silent Kiss|Beyonce
+10168|Broken Road|Katy Perry
+10169|Golden River (Acoustic)|Celine Dion
+10170|Broken Shadow|Mariah Carey
+10171|Burning Road|Beyonce, Whitney Houston
+10172|Midnight Fire|Beyonce
+10173|Secret Train|Shania Twain
+10174|Broken Storm|Dolly Parton
+10175|Frozen Kiss|Elton John
+10176|Velvet Fire|Queen
+10177|Summer Lullaby|Pet Shop Boys
+10178|Frozen Hotel|Metallica
+10179|Golden Kiss|Rihanna
+10180|Broken Kiss|Rihanna
+10181|Electric Sky|Prince
+10182|Secret Heart (Remix)|Guns N' Roses
+10183|Dancing Fire|Johnny Cash
+10184|Last Runner|Aerosmith
+10185|Frozen Train|(unknown)
+10186|Silent Paradise|Shania Twain
+10187|Midnight Heart|Beyonce
+10188|Electric Shadow|Guns N' Roses
+10189|Wild Train|Whitney Houston
+10190|Silent Paradise|Coldplay, Prince
+10191|Frozen Dream|Johnny Cash
+10192|Dancing Mirror|The Cure
+10193|Endless Kiss|Muse
+10194|Secret Letter|Lady Gaga
+10195|Little Fire (Remix)|Whitney Houston
+10196|Golden Letter|Pulp
+10197|Wild Shadow|Rihanna
+10198|Last Kiss|Rihanna
+10199|Dancing Letter|Elvis Presley
+10200|Velvet Fire|ABBA
+10201|Wild Paradise|Ed Sheeran
+10202|Crazy Rain|Elvis Presley
+10203|Blue Kiss|Whitney Houston
+10204|Secret Ghost|Pulp
+10205|Dancing Mirror|Muse
+10206|Velvet Kiss|Nirvana
+10207|Last Hotel|Queen
+10208|Broken Paradise (Live)|Katy Perry
+10209|Little Runner|Whitney Houston, Muse
+10210|Summer Kiss|Celine Dion
+10211|Midnight Fire|Lady Gaga
+10212|Little Rain|Dolly Parton
+10213|Burning Lullaby|Muse
+10214|Neon Storm|The Cure
+10215|Broken Runner|Elton John
+10216|Burning Paradise|Adele
+10217|Last Ghost|Celine Dion
+10218|Velvet Ghost|Radiohead
+10219|Burning Paradise|New Order
+10220|Summer Shadow|Radiohead
+10221|Neon Sky (Unplugged)|New Order
+10222|Sweet Train|(unknown)
+10223|Sweet Angel|Michael Jackson
+10224|Burning Sky|Tina Turner
+10225|Midnight Dream|Katy Perry
+10226|Secret Heart|Coldplay
+10227|Neon Mirror|Ed Sheeran
+10228|Blue Mirror|Ed Sheeran, Depeche Mode
+10229|Blue River|Bruno Mars
+10230|Neon Angel|Lady Gaga
+10231|Crazy Heart|Blur
+10232|Broken Runner|U2
+10233|Crazy Paradise|Nirvana
+10234|Summer Paradise (Unplugged)|Guns N' Roses
+10235|Broken Kiss|Ed Sheeran
+10236|Wild Storm|U2
+10237|Broken Train|Bon Jovi
+10238|Golden Shadow|Guns N' Roses
+10239|Endless Rain|Depeche Mode
+10240|Neon Train|Blur
+10241|Golden Sky|Oasis
+10242|Crazy Angel|Nirvana
+10243|Frozen Sky|Muse
+10244|Endless Train|Michael Jackson
+10245|Little Paradise|The Cure
+10246|Secret Kiss|Michael Jackson
+10247|Crazy Kiss (Remix)|Muse, Beyonce
+10248|Summer Heart|ABBA
+10249|Little Rain|Aerosmith
+10250|Midnight Paradise|Adele
+10251|Broken Song|Pulp
+10252|Little River|Madonna
+10253|Electric Lullaby|Katy Perry
+10254|Wild Angel|Metallica
+10255|Wild Kiss|Dolly Parton
+10256|Blue Angel|Oasis
+10257|Dancing Fire|Bon Jovi
+10258|Endless Kiss|Bon Jovi
+10259|Neon Rain|(unknown)
+10260|Golden Train (Remix)|New Order
+10261|Blue Sky|Suede
+10262|Electric Shadow|Shania Twain
+10263|Secret Fire|Guns N' Roses
+10264|Blue River|Pulp
+10265|Dancing Shadow|The Cure
+10266|Secret Angel|Guns N' Roses, Elvis Presley
+10267|Midnight River|Elvis Presley
+10268|Silent Paradise|Madonna
+10269|Sweet Angel|Johnny Cash
+10270|Sweet Road|Bruno Mars
+10271|Wild Letter|Shania Twain
+10272|Broken Letter|Bon Jovi
+10273|Secret Paradise (Acoustic)|Bon Jovi
+10274|Frozen Sky|Guns N' Roses
+10275|Blue Song|Whitney Houston
+10276|Frozen Song|Madonna
+10277|Wild Train|Queen
+10278|Wild Mirror|Depeche Mode
+10279|Last Kiss|The Cure
+10280|Wild Mirror|Pulp
+10281|Golden Hotel|The Cure
+10282|Electric Ghost|Madonna
+10283|Paper Sky|Queen
+10284|Crazy Storm|Ed Sheeran
+10285|Burning Ghost|The Cure, Tina Turner
+10286|Midnight Shadow (Live)|Depeche Mode
+10287|Burning Sky|Pulp
+10288|Dancing Letter|Madonna
+10289|Little Fire|Johnny Cash
+10290|Dancing Dream|U2
+10291|Broken Shadow|Katy Perry
+10292|Crazy Angel|Blur
+10293|Blue Runner|Whitney Houston
+10294|Wild Letter|Dolly Parton
+10295|Golden Angel|Radiohead
+10296|Burning River|(unknown)
+10297|Summer Shadow|Garth Brooks
+10298|Midnight Mirror|Madonna
+10299|Paper Lullaby (Live)|Blur
+10300|Wild Dream|Nirvana
+10301|Neon Shadow|U2
+10302|Crazy Ghost|Celine Dion
+10303|Electric Letter|Adele
+10304|Last Shadow|Blur, Tina Turner
+10305|Little Heart|Metallica
+10306|Sweet Fire|Elvis Presley
+10307|Golden Ghost|Ed Sheeran
+10308|Paper Dream|Depeche Mode
+10309|Velvet Heart|Johnny Cash
+10310|Broken Kiss|Rihanna
+10311|Wild Kiss|Depeche Mode
+10312|Crazy Paradise (Unplugged)|New Order
+10313|Frozen Song|Bon Jovi
+10314|Electric Rain|Whitney Houston
+10315|Electric Sky|Suede
+10316|Burning Angel|Lady Gaga
+10317|Velvet Mirror|Dolly Parton
+10318|Burning River|Metallica
+10319|Crazy Mirror|Ed Sheeran
+10320|Silent Road|Celine Dion
+10321|Frozen Storm|Michael Jackson
+10322|Summer Song|ABBA
+10323|Velvet Train|Bon Jovi, Katy Perry
+10324|Neon Paradise|Coldplay
+10325|Neon Ghost (Acoustic)|U2
+10326|Little Storm|Oasis
+10327|Endless Rain|Blur
+10328|Burning Heart|U2
+10329|Secret Ghost|ABBA
+10330|Silent Road|Oasis
+10331|Dancing Train|Michael Jackson
+10332|Endless Storm|Prince
+10333|Velvet Runner|(unknown)
+10334|Secret Lullaby|Muse
+10335|Sweet Dream|Beyonce
+10336|Neon Kiss|Madonna
+10337|Paper Kiss|Adele
+10338|Burning Shadow (Unplugged)|Coldplay
+10339|Sweet Letter|Elvis Presley
+10340|Last River|Suede
+10341|Sweet Runner|Elton John
+10342|Wild River|Oasis, Prince
+10343|Last Runner|Nirvana
+10344|Paper Dream|Celine Dion
+10345|Velvet Song|Tina Turner
+10346|Secret Fire|Guns N' Roses
+10347|Midnight Kiss|Pet Shop Boys
+10348|Golden Sky|Celine Dion
+10349|Burning Sky|Dolly Parton
+10350|Last Lullaby|Madonna
+10351|Little Kiss (Remix)|Celine Dion
+10352|Broken Letter|Elvis Presley
+10353|Little Hotel|Metallica
+10354|Blue Runner|Celine Dion
+10355|Dancing Fire|U2
+10356|Endless Fire|Oasis
+10357|Electric Ghost|Beyonce
+10358|Last Heart|Guns N' Roses
+10359|Secret River|Prince
+10360|Crazy Heart|Coldplay
+10361|Broken Shadow|Mariah Carey, Elton John
+10362|Blue Shadow|Muse
+10363|Golden Kiss|U2
+10364|Last Angel (Acoustic)|Mariah Carey
+10365|Endless Dream|Whitney Houston
+10366|Endless Letter|Katy Perry
+10367|Endless Storm|Queen
+10368|Little Letter|Beyonce
+10369|Blue Sky|Bon Jovi
+10370|Broken Lullaby|(unknown)
+10371|Silent Storm|Dolly Parton
+10372|Sweet Fire|Pet Shop Boys
+10373|Electric Rain|Pulp
+10374|Sweet Lullaby|Bruno Mars
+10375|Wild Paradise|Muse
+10376|Frozen Road|The Cure
+10377|Silent Storm (Remix)|The Cure
+10378|Midnight Kiss|Madonna
+10379|Golden Song|Metallica
+10380|Secret Shadow|Dolly Parton, Dolly Parton
+10381|Dancing Train|Michael Jackson
+10382|Paper Fire|Bon Jovi
+10383|Golden Song|The Cure
+10384|Burning Lullaby|Suede
+10385|Dancing Lullaby|Lady Gaga
+10386|Electric Letter|New Order
+10387|Golden Fire|ABBA
+10388|Sweet Train|Katy Perry
+10389|Secret Train|Coldplay
+10390|Electric Paradise (Live)|Guns N' Roses
+10391|Summer Mirror|Rihanna
+10392|Golden Sky|Celine Dion
+10393|Endless Hotel|Queen
+10394|Electric Kiss|Mariah Carey
+10395|Paper Heart|U2
+10396|Frozen Mirror|Nirvana
+10397|Secret Mirror|Rihanna
+10398|Blue Storm|Oasis
+10399|Little Song|The Cure, Dolly Parton

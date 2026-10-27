@@ -1,0 +1,21 @@
+# Rust
+cli/target/
+
+# Android / Gradle
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.iml
+*.apk
+*.aab
+captures/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build output
+*.pdf

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light theme tokens: navy professional + emerald CTA -->
+    <color name="color_bg">#F8FAFC</color>
+    <color name="color_surface">#FFFFFF</color>
+    <color name="color_surface_alt">#F1F5F9</color>
+    <color name="color_text">#0F172A</color>
+    <color name="color_text_muted">#475569</color>
+    <color name="color_border">#E2E8F0</color>
+    <color name="color_primary">#1E3A5F</color>
+    <color name="color_on_primary">#FFFFFF</color>
+    <color name="color_accent">#047857</color>
+    <color name="color_on_accent">#FFFFFF</color>
+    <color name="color_danger">#B91C1C</color>
+    <color name="color_danger_bg">#FEF2F2</color>
+    <color name="color_danger_border">#FECACA</color>
+    <color name="color_ok">#065F46</color>
+    <color name="color_ok_bg">#ECFDF5</color>
+    <color name="color_chip_bg">#E2E8F0</color>
+    <color name="color_ripple_light">#33FFFFFF</color>
+    <color name="color_ripple_dark">#1A0F172A</color>
+
+    <!-- Design tokens -->
+    <dimen name="space_1">4dp</dimen>
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_4">16dp</dimen>
+    <dimen name="space_5">24dp</dimen>
+    <dimen name="space_6">32dp</dimen>
+    <dimen name="radius_card">16dp</dimen>
+    <dimen name="radius_control">10dp</dimen>
+    <dimen name="touch_min">48dp</dimen>
+    <dimen name="gutter">16dp</dimen>
+</resources>

@@ -1,0 +1,88 @@
+10001|Bohemian Rhapsody|(unknown)
+10002|Dancing Queen|ABBA
+10003|Hotel California|Eagles
+10004|Imagine|John Lennon
+10005|Sweet Caroline|Neil Diamond
+10006|Piano Man|Billy Joel
+10007|Country Roads|John Denver
+10008|Killing Me Softly|Roberta Flack
+10009|Wonderwall|Oasis
+10010|Zombie|Cranberries
+10011|Africa|Toto
+10012|Billie Jean|Michael Jackson
+10013|Like a Prayer|Madonna
+10014|Smells Like Teen Spirit|Nirvana
+10015|Losing My Religion|R.E.M.
+10016|Every Breath You Take|Police
+10017|Purple Rain|Prince
+10018|Hey Jude|Beatles, Sia
+10019|Let It Be|Frank Sinatra
+10020|Yesterday|Gloria Gaynor
+10021|My Way|Bonnie Tyler
+10022|New York New York|George Michael
+10023|I Will Survive|a-ha
+10024|Total Eclipse of the Heart|(unknown)
+10025|Careless Whisper|Toto
+10026|Take On Me|Madonna
+10027|Girls Just Want to Have Fun|Queen
+10028|Time After Time|Radiohead
+10029|Material Girl|Soundgarden
+10030|Under Pressure|Fleetwood Mac
+10031|Creep|Leonard Cohen
+10032|Black Hole Sun|Righteous Brothers
+10033|Songbird|Ben E. King
+10034|Hallelujah|Procol Harum
+10035|Unchained Melody|Animals, a-ha
+10036|Stand By Me|Bill Withers
+10037|A Whiter Shade of Pale|Louis Armstrong
+10038|House of the Rising Sun|Judy Garland
+10039|Ain't No Sunshine|Andy Williams
+10040|What a Wonderful World|Frank Sinatra
+10041|Over the Rainbow|Astrud Gilberto
+10042|Moon River|Ritchie Valens
+10043|Fly Me to the Moon|Los del Rio
+10044|The Girl from Ipanema|PSY
+10045|La Bamba|Luis Fonsi
+10046|Macarena|Ed Sheeran
+10047|Gangnam Style|(unknown)
+10048|Despacito|Mark Ronson
+10049|Shape of You|Daft Punk
+10050|Rolling in the Deep|Pharrell Williams
+10051|Someone Like You|Lorde
+10052|Uptown Funk|Sia, Barbara Streisand
+10053|Get Lucky|Sam Smith
+10054|Happy|John Legend
+10055|Royals|Ed Sheeran
+10056|Chandelier|Ed Sheeran
+10057|Stay With Me|Ed Sheeran
+10058|All of Me|Lady Gaga
+10059|Thinking Out Loud|Lady Gaga
+10060|Perfect|Naomi Scott
+10061|Photograph|Idina Menzel
+10062|Castle on the Hill|Auli'i Cravalho
+10063|Shallow|Elton John
+10064|Always Remember Us This Way|Elton John
+10065|Speechless|Nathan Lane
+10066|Let It Go|Baloo
+10067|How Far I'll Go|Julie Andrews
+10068|Frozen Heart|Dick Van Dyke
+10069|Circle of Life|Julie Andrews, Luis Fonsi
+10070|Can You Feel the Love Tonight|(unknown)
+10071|Hakuna Matata|Julie Andrews
+10072|Bare Necessities|Christopher Plummer
+10073|Supercalifragilisticexpialidocious|Julie Andrews
+10074|Chim Chim Cher-ee|Barbara Streisand
+10075|A Spoonful of Sugar|West Side Story
+10076|Do-Re-Mi|West Side Story
+10077|My Favorite Things|West Side Story
+10078|Edelweiss|West Side Story
+10079|Climb Ev'ry Mountain|West Side Story
+10080|Somewhere|West Side Story
+10081|Tonight|Queen
+10082|Maria|ABBA
+10083|America|Eagles
+10084|I Feel Pretty|John Lennon
+10085|Officer Krupke|Neil Diamond
+10086|Gee Officer Krupke|Billy Joel, Police
+10099|Supercalifragilisticexpialidocious (Reprise)|Julie Andrews
+10050|Ain't No Mountain High Enough|Marvin Gaye & Tammi Terrell

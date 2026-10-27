@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Songbook Maker</string>
+    <string name="tagline">Song list to print-ready PDF</string>
+
+    <string name="section_file">01  Song list</string>
+    <string name="pick_file">Choose file</string>
+    <string name="pick_hint">CSV or TXT: number, title, artist</string>
+    <string name="no_file">No file loaded</string>
+
+    <string name="section_layout">02  Page layout</string>
+    <string name="paper">Paper</string>
+    <string name="columns">Columns</string>
+    <string name="margin">Margin</string>
+    <string name="sections">Sections</string>
+    <string name="sort">Sort by</string>
+
+    <string name="section_look">03  Look</string>
+    <string name="title_text">Title on page</string>
+    <string name="title_hint">e.g. Karaoke Night</string>
+    <string name="footer_text">Footer text</string>
+    <string name="footer_hint">optional</string>
+    <string name="bold">Bold song text</string>
+    <string name="numbers">Page numbers</string>
+    <string name="mirror">Mirror margins</string>
+    <string name="artist_col">Artist column</string>
+
+    <string name="create">Create PDF</string>
+    <string name="share">Share</string>
+    <string name="open">Open</string>
+
+    <string name="choose_paper">Paper size</string>
+    <string name="choose_columns">Columns per page</string>
+    <string name="choose_margin">Page margin</string>
+    <string name="choose_sections">Letter sections</string>
+    <string name="choose_sort">Sort songs by</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="err_no_songs">Choose a song list first</string>
+    <string name="err_no_valid">No valid songs found in that file</string>
+    <string name="err_read">Could not read that file</string>
+    <string name="err_write">Could not write the PDF</string>
+    <string name="err_no_viewer">No PDF viewer installed - use Share instead</string>
+    <string name="created">PDF ready</string>
+</resources>
