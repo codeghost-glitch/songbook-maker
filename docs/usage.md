@@ -8,6 +8,10 @@ line tool, the Android app, the layout engine and the build.
 Any of these delimiters is detected from the file itself: `|`, TAB, `;`, `,`.
 Quoted CSV fields are honoured for `,` and `;`.
 
+Spreadsheet exports work as they come out of the spreadsheet app: a caption row
+(`NUMBER,TITLE,ARTIST,...`) is skipped, a UTF-8 BOM is ignored, and cells written as
+text formulas (`="100034"`) are unwrapped to their value.
+
 | Columns | Layout |
 |---|---|
 | 3 | `number, title, artist` (also detected: `title, number, artist` and `artist, title, number`) |

@@ -127,8 +127,19 @@ pub fn detect_delimiter(lines: &[&str]) -> char {
     best
 }
 
+/// Spreadsheet apps write text-only columns as formulas, `="100034"`.
+/// Song lists exported from song managers arrive wrapped like that, so the
+/// wrapper is removed here instead of turning every number into "Invalid".
+fn clean_literal(field: &str) -> String {
+    let f = field.trim();
+    match f.strip_prefix("=\"").and_then(|r| r.strip_suffix('"')) {
+        Some(inner) => inner.trim().to_string(),
+        None => f.trim_matches('"').trim().to_string(),
+    }
+}
+
 /// Split one line. Quoted values are honoured for ',' and ';' (RFC 4180),
-/// pipe/TAB files are split literally like the app does (quotes stripped).
+/// pipe/TAB files are split literally (quotes stripped).
 pub fn split_fields(line: &str, delim: char) -> Vec<String> {
     if delim == ',' || delim == ';' {
         let mut fields = Vec::new();
@@ -137,6 +148,11 @@ pub fn split_fields(line: &str, delim: char) -> Vec<String> {
         let mut chars = line.chars().peekable();
         while let Some(c) = chars.next() {
             match c {
+                // Excel/Sheets wrapper: ="value" -> value
+                '=' if cur.is_empty() && !in_quotes && chars.peek() == Some(&'"') => {
+                    chars.next();
+                    in_quotes = true;
+                }
                 '"' if in_quotes && chars.peek() == Some(&'"') => {
                     cur.push('"');
                     chars.next();
@@ -152,8 +168,20 @@ pub fn split_fields(line: &str, delim: char) -> Vec<String> {
         fields.push(cur.trim().to_string());
         fields
     } else {
-        line.split(delim).map(|f| f.trim().trim_matches('"').to_string()).collect()
+        line.split(delim).map(clean_literal).collect()
     }
+}
+
+/// First line of a spreadsheet export is a caption, not a song.
+fn looks_like_header(cols: &[String]) -> bool {
+    if cols.len() < 2 {
+        return false;
+    }
+    let first = cols[0].trim().to_ascii_lowercase();
+    let second = cols[1].trim().to_ascii_lowercase();
+    let number = matches!(first.as_str(), "number" | "no" | "num" | "n" | "#" | "song number");
+    let title = matches!(second.as_str(), "title" | "song" | "song title" | "name");
+    number && title
 }
 
 fn looks_numeric(s: &str) -> bool {
@@ -162,8 +190,10 @@ fn looks_numeric(s: &str) -> bool {
 
 /// Parse a song list.
 pub fn parse(text: &str, order: Order) -> (Vec<Song>, Report) {
+    let text = text.trim_start_matches('\u{feff}');
     let lines: Vec<&str> = text.lines().collect();
     let delim = detect_delimiter(&lines);
+    let mut header_allowed = true;
 
     let mut songs: Vec<Song> = Vec::new();
     let mut report = Report::default();
@@ -174,8 +204,14 @@ pub fn parse(text: &str, order: Order) -> (Vec<Song>, Report) {
         if raw.trim().is_empty() {
             continue;
         }
-        report.lines += 1;
         let cols = split_fields(raw, delim);
+        if header_allowed {
+            header_allowed = false;
+            if looks_like_header(&cols) {
+                continue;
+            }
+        }
+        report.lines += 1;
         if cols.len() < 3 {
             report.invalid.push((line_no, raw.to_string()));
             continue;
@@ -249,6 +285,34 @@ pub fn parse(text: &str, order: Order) -> (Vec<Song>, Report) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn reads_spreadsheet_exports() {
+        // exactly what a SongHub export looks like: caption row, every value
+        // wrapped in an Excel text formula, six columns
+        let text = concat!(
+            "NUMBER,TITLE,ARTIST,CATEGORY,TYPE,UPDATE\n",
+            "=\"100034\",\"18\",\"One Direction\",\"User Content\",\"MIDI\",\"User Update\"\n",
+            "=\"100056\",\"A Parallel World\",\"BINI\",\"User Content\",\"MIDI\",\"User Update\"\n",
+        );
+        let (songs, report) = parse(text, Order::Auto);
+        assert_eq!(songs.len(), 2);
+        assert_eq!(report.rejected(), 0);
+        assert_eq!(songs[0].num, 100034);
+        assert_eq!(songs[0].title, "18");
+        assert_eq!(songs[0].artist, "One Direction");
+        assert_eq!(songs[1].artist, "BINI");
+    }
+
+    #[test]
+    fn skips_bom_and_header_only_once() {
+        let text = "\u{feff}number,title,artist\n1,A,B\nnumber,title,artist\n";
+        let (songs, report) = parse(text, Order::Auto);
+        assert_eq!(songs.len(), 1);
+        // the second caption line is a real rejection, not a second header
+        assert_eq!(report.rejected(), 1);
+        assert_eq!(songs[0].title, "A");
+    }
 
     #[test]
     fn detects_pipe_and_tab() {
