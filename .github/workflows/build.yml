@@ -7,7 +7,7 @@ on:
 
 jobs:
   rust:
-    name: rust cli
+    name: rust engine
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -32,14 +32,22 @@ jobs:
         working-directory: android
     steps:
       - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android
+      - uses: taiki-e/install-action@cargo-ndk
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
       - uses: gradle/actions/setup-gradle@v4
-      - run: chmod +x gradlew
+      - name: point cargo-ndk at the runner NDK
+        run: echo "ANDROID_NDK_HOME=${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}" >> "$GITHUB_ENV"
+      - run: chmod +x build-native.sh gradlew
+      - run: ./build-native.sh
       - run: ./gradlew assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: songbook-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk

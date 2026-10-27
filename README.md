@@ -4,8 +4,8 @@
 
 **Turn a karaoke song list into a print-ready PDF songbook.**
 
-A Rust CLI and an Android app built on one shared print engine, reverse engineered from
-[MEGA Karaoke Songbook 2.59](https://play.google.com/store/apps/details?id=app.lcs.megabook).
+A Rust engine with a command-line front end and a Kotlin Android app, reproducing the
+print engine of [MEGA Karaoke Songbook 2.59](https://play.google.com/store/apps/details?id=app.lcs.megabook).
 
 </div>
 
@@ -27,8 +27,8 @@ Feed it a plain text or CSV song list:
 ```
 
 and get a paginated, alphabetic songbook PDF with a header band, letter sections,
-three columns of numbered cells and a page counter - the same layout the Android
-app prints, minus the ads and the built-in database.
+three columns of numbered cells and a page counter - the same layout the Android app
+prints, minus the ads and the built-in database.
 
 | | |
 |---|---|
@@ -39,6 +39,29 @@ app prints, minus the ads and the built-in database.
 | Bands | 35 pt header, 20 pt footer, black at 34/255 opacity, optional 119x20 pt logo |
 | Text | Helvetica 7.5 / 8 / 6.5 pt, shrink-to-fit with a two-line fallback |
 
+## Architecture
+
+One engine, two front ends:
+
+```
+                 +---------------------+
+   CSV/TXT ----> |  cli/src/lib.rs     | ----> PDF bytes
+                 |  import -> render   |
+                 |  pdf writer         |
+                 +----------+----------+
+                            | JNI (android feature)
+                 +----------v----------+
+                 |  Kotlin app         |
+                 |  Engine.kt (native) |
+                 |  MainActivity.kt UI |
+                 +---------------------+
+```
+
+The CLI parses flags into `Options`; the app sends the same options as `key=value`
+lines. Both end up in `render_text()`, so a songbook is identical no matter which
+front end produced it. The Rust side owns parsing, pagination, fonts, PDF writing and
+even PNG decoding; Kotlin only does UI, file access and saving.
+
 ## Install
 
 ### CLI (Rust 1.70+, no dependencies)
@@ -48,17 +71,27 @@ cargo install --path cli          # or: cd cli && cargo build --release
 songbook songs.csv -o songbook.pdf --name "Karaoke Night"
 ```
 
-### Android (API 23+, no external libraries)
+The PDF is written to the path given with `-o` (input name with `.pdf` by default).
+
+### Android (API 23+)
+
+Needs the Android SDK/NDK, `cargo-ndk` and the Android Rust targets:
 
 ```bash
+rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android
+cargo install cargo-ndk
+
 cd android
+./build-native.sh                 # Rust engine -> app/src/main/jniLibs
 ./gradlew assembleDebug           # -> app/build/outputs/apk/debug/app-debug.apk
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
-The app is a single screen: pick a file, choose paper / columns / margin / sections /
-sort order, tweak the title and footer, then **Create PDF**. The result opens in any
-PDF viewer and can be shared from the same button row.
+**Where the PDF goes:** on Android 10 and newer it is saved to
+`Downloads/Songbook/<title>.pdf` through MediaStore, so any file manager and any PDF
+viewer can open it. The in-app *Open* button launches a viewer and *Share* sends the
+same file. On older releases the file falls back to the app cache and is served
+through a content provider.
 
 ## Song list format
 
@@ -117,43 +150,50 @@ songbook examples/songs.txt --paper letter --columns 2 --sections newpage --mirr
 songbook examples/songs400.txt --logo examples/logo.png --footer-center "MEGA Songbook"
 ```
 
-## Verification
+The Android app sends the same options as a `key=value` block, for example:
 
-The Android sources contain no framework code below `MainActivity`, so the whole
-pipeline is testable on a desktop JVM:
-
-```bash
-cd android
-javac -d out app/src/main/java/io/github/codeghost/songbook/{Fonts,SongList,PdfDoc,Sheet}.java tools/Harness.java
-java -cp out Harness ../examples/songs400.txt auto "Karaoke Night" /tmp/android.pdf 3 false "MEGA Songbook" false
+```
+paper=a4
+margin=0.25
+columns=3
+sections=continuous
+sort=title
+artist=1
+bold=1
+page_numbers=1
+name=Karaoke Night
+footer_center=MEGA Songbook
 ```
 
-Rendering both that file and the Rust CLI output at 150 dpi gives **pixel-identical
-pages** (0 differing bytes over 6.5 M per page), and the Rust crate has unit tests
-for the parser, the geometry and the PDF primitives:
+## Tests
 
 ```bash
-cd cli && cargo test
+cd cli && cargo test        # 29 tests: parser, geometry, PDF primitives, inflate, packet
 ```
+
+The Android app carries no layout logic of its own - it calls the same
+`render_text()` through JNI - so the Rust tests cover both front ends. During the
+port, the Kotlin/Java layout results were also compared page by page against the CLI
+output at 150 dpi and were pixel identical.
 
 ## Repository layout
 
 ```
-cli/                  Rust crate: zero dependencies, hand-written PDF writer
-  src/fonts.rs        Helvetica AFM metrics
-  src/import.rs       song list parser
+cli/                  Rust engine + CLI
+  src/lib.rs          options, render entry point, JNI packet format
+  src/main.rs         command line front end
+  src/import.rs       song list parser (port of sbmanager.bas)
   src/render.rs       print engine (port of pprint.bas)
-  src/pdf.rs          PDF 1.4 writer + zlib/PNG decoding
-android/              Android app: plain Java views, no AndroidX
+  src/pdf.rs          PDF 1.4 writer, inflate, PNG decoding
+  src/fonts.rs        Helvetica AFM metrics
+  src/android.rs      JNI entry points (feature "android")
+android/              Kotlin app, plain views, no AndroidX
   app/src/main/java/io/github/codeghost/songbook/
-    MainActivity.java UI and file picker
-    SongList.java     parser (mirror of import.rs)
-    Sheet.java        print engine (mirror of render.rs)
-    PdfDoc.java       PDF writer (mirror of pdf.rs)
-    Fonts.java        Helvetica metrics
-    PdfProvider.java  content provider used to open/share the PDF
-  tools/Harness.java  desktop smoke test
-examples/             sample song lists, logo and the Python reference implementation
+    MainActivity.kt   UI, file picker, options, saving to Downloads
+    Engine.kt         JNI wrapper and packet decoding
+    PdfProvider.kt    content provider for opening and sharing
+  build-native.sh     cargo ndk -> app/src/main/jniLibs
+examples/             sample song lists, logo and the Python reference build
 docs/                 reverse-engineering notes and screenshots
 ```
 

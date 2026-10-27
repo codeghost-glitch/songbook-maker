@@ -212,7 +212,8 @@ impl Pdf {
         }
     }
 
-    pub fn save(&self, path: &Path, title: &str) -> io::Result<()> {
+    /// Serialise the whole document.
+    pub fn bytes(&self, title: &str) -> Vec<u8> {
         let mut objs: Vec<Vec<u8>> = Vec::new();
         let npages = self.pages.len();
         let nimg = self.images.len();
@@ -322,7 +323,11 @@ impl Pdf {
             )
             .as_bytes(),
         );
-        fs::write(path, out)
+        out
+    }
+
+    pub fn save(&self, path: &Path, title: &str) -> io::Result<()> {
+        fs::write(path, self.bytes(title))
     }
 }
 
@@ -565,10 +570,9 @@ pub fn inflate(data: &[u8]) -> Result<Vec<u8>, String> {
 }
 
 /// Decode an 8-bit, non-interlaced PNG into 8-bit RGB, compositing alpha over bg.
-pub fn load_png(path: &Path, bg: Color) -> Result<(u32, u32, Vec<u8>), String> {
-    let data = fs::read(path).map_err(|e| format!("{}: {}", path.display(), e))?;
+pub fn load_png(data: &[u8], bg: Color) -> Result<(u32, u32, Vec<u8>), String> {
     if data.len() < 8 || &data[..8] != b"\x89PNG\r\n\x1a\n" {
-        return Err(format!("{}: not a PNG file", path.display()));
+        return Err("not a PNG file".to_string());
     }
     let mut pos = 8usize;
     let mut ihdr: Option<(u32, u32, u8, u8, u8)> = None;

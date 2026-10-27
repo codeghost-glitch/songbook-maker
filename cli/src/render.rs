@@ -6,8 +6,6 @@
 //!   9 999 999), title 65% and artist 35% of the rest, 35 pt top band,
 //!   20 pt bottom band, rows per page coming from a hard-coded table.
 
-use std::path::PathBuf;
-
 use crate::fonts;
 use crate::import::{Order, Song};
 use crate::pdf::{self, Align, Color, Pdf};
@@ -146,7 +144,7 @@ pub struct Options {
     pub footer_center: String,
     pub page_numbers: bool,
     pub mirror: bool,
-    pub logo: Option<PathBuf>,
+    pub logo: Option<Vec<u8>>,
     pub bold: bool,
     pub scale: f32,
     pub num_size: f32,

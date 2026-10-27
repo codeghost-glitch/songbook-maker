@@ -4,17 +4,12 @@
 //! (app.lcs.megabook), whose print engine was reverse engineered from the
 //! shipped APK. See README.md for the full geometry table.
 
-mod fonts;
-mod import;
-mod pdf;
-mod render;
-
 use std::path::PathBuf;
 use std::process::ExitCode;
 
-use import::Order;
-use pdf::Color;
-use render::{Options, Paper, Sections, SortKey};
+use songbook::import::{self, Order};
+use songbook::pdf::Color;
+use songbook::render::{self, Options, Paper, Sections, SortKey};
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -148,7 +143,11 @@ fn parse_args() -> Result<Option<Args>, String> {
             "--footer-center" => opt.footer_center = next_value(&mut it, arg)?.clone(),
             "--no-page-numbers" => opt.page_numbers = false,
             "--mirror" => opt.mirror = true,
-            "--logo" => opt.logo = Some(PathBuf::from(next_value(&mut it, arg)?)),
+            "--logo" => {
+                let path = next_value(&mut it, arg)?.clone();
+                let data = std::fs::read(&path).map_err(|e| format!("{}: {}", path, e))?;
+                opt.logo = Some(data);
+            }
             "--bold" => opt.bold = true,
             "--scale" => opt.scale = parse_f32(&mut it, arg)?,
             "--num-size" => opt.num_size = parse_f32(&mut it, arg)?,

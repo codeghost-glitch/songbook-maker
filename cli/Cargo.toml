@@ -1,19 +1,29 @@
 [package]
-name = "songbook-rs"
-version = "0.1.0"
+name = "songbook"
+version = "1.0.0"
 edition = "2021"
 rust-version = "1.70"
 description = "Turn a CSV/TXT karaoke song list into a printable songbook PDF"
 license = "MIT"
-repository = "https://github.com/codeghost-glitch/songbook-rs"
+repository = "https://github.com/codeghost-glitch/songbook-maker"
 keywords = ["karaoke", "songbook", "pdf", "csv", "cli"]
 categories = ["command-line-utilities"]
+
+[lib]
+name = "songbook"
+crate-type = ["rlib", "cdylib"]
 
 [[bin]]
 name = "songbook"
 path = "src/main.rs"
 
-[dependencies]
+[features]
+default = []
+# JNI entry point used by the Android app
+android = ["dep:jni"]
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni = { version = "0.21", optional = true }
 
 [profile.release]
 opt-level = 3

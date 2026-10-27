@@ -42,4 +42,17 @@
     <string name="err_write">Could not write the PDF</string>
     <string name="err_no_viewer">No PDF viewer installed - use Share instead</string>
     <string name="created">PDF ready</string>
+    <string name="saved_to">Saved to</string>
+    <plurals name="songs">
+        <item quantity="one">%d song</item>
+        <item quantity="other">%d songs</item>
+    </plurals>
+    <plurals name="skipped">
+        <item quantity="one">%d line skipped</item>
+        <item quantity="other">%d lines skipped</item>
+    </plurals>
+    <plurals name="pages">
+        <item quantity="one">%d page</item>
+        <item quantity="other">%d pages</item>
+    </plurals>
 </resources>

@@ -6,6 +6,7 @@ android/.gradle/
 android/build/
 android/app/build/
 android/local.properties
+android/app/src/main/jniLibs/
 android/.idea/
 *.iml
 *.apk
