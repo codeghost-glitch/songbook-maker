@@ -1,5 +1,4 @@
-//! Songbook layout and drawing - a 1:1 port of the print engine in the
-//! MEGA Karaoke Songbook 2.59 class pprint.bas.
+//! Songbook layout and drawing - the print engine.
 //!
 //! Geometry (all values in PDF points, 72 per inch):
 //!   row height 19, column gap 8, number column 40 (42 if numbers exceed

@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 songbook.py - CSV/TXT -> songbook PDF.
-A dependency-free re-implementation of the print engine of
-"MEGA Karaoke Songbook" 2.59 (app.lcs.megabook), reconstructed from its
-B4A bytecode (see README-songbook.md).
+A dependency-free reference implementation of the print engine that the Rust
+version in cli/ ports (see docs/usage.md).
 
-Import format (same as the app):
+Import format:
     number | title | artist
     number | title | artist | category | song type | update
 Delimiters: pipe ( | ), TAB, semicolon, comma.
@@ -725,7 +724,7 @@ def build_pdf(songs, opt):
 def main(argv=None):
     ap = argparse.ArgumentParser(
         description="Convert a karaoke song list (CSV/TXT) into a printable "
-                    "songbook PDF (layout of MEGA Karaoke Songbook 2.59).",
+                    "songbook PDF.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__)
     ap.add_argument("input", help="CSV/TXT file: number|title|artist[|category|type|update]")

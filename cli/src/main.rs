@@ -1,8 +1,6 @@
 //! songbook - turn a CSV/TXT karaoke song list into a printable PDF songbook.
 //!
-//! The layout reproduces MEGA Karaoke Songbook 2.59 for Android
-//! (app.lcs.megabook), whose print engine was reverse engineered from the
-//! shipped APK. See README.md for the full geometry table.
+//! The layout is documented in docs/usage.md, including the geometry table.
 
 use std::path::PathBuf;
 use std::process::ExitCode;

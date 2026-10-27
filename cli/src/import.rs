@@ -1,6 +1,6 @@
 //! Song list import: the app's 3/6 column format plus ordinary CSV.
 //!
-//! Mirrors sbmanager.bas from MEGA Karaoke Songbook 2.59:
+//! Import rules of the songbook format:
 //!   * delimiter sniffing on the first lines (pipe, TAB, and also ; and ,)
 //!   * column orders number|title|artist, title|number|artist, artist|title|number
 //!   * rejected lines are collected instead of aborting the whole import
