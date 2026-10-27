@@ -262,7 +262,7 @@ fn run() -> Result<(), String> {
             }
         );
         println!(
-            "cell widths: {}/{}/{}   sort: {}   order: {}   sections: {}",
+            "cell widths: {:.1}/{:.1}/{:.1}   sort: {}   order: {}   sections: {}",
             summary.cells[0],
             summary.cells[1],
             summary.cells[2],

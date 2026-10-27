@@ -161,10 +161,15 @@ columnX[i] = margin + i*(colWidth + 8)
 rest       = colWidth - 40
 numberCol  = 40 pt   (42 if any number exceeds 9 999 999)
 titleCol   = 0.65 * rest
-artistCol  = 0.35 * rest
+artistCol  = colWidth - numberCol - titleCol
 ```
 
 Rows fill column 1 top to bottom, then column 2, then the next page.
+
+The artist column takes whatever is left over, so the three cells always add up to
+the full column width. Rounding the title and the artist separately would leave a
+fraction of a point over and the vertical rules of neighbouring columns would not
+line up.
 
 Font sizes start at 20 sp (title and number), 17 sp (artist) and 16 sp (section letter)
 and shrink in 0.25 steps down to 9 sp. If the text still does not fit, it is split at

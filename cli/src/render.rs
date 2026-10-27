@@ -331,19 +331,22 @@ pub fn render(songs: &[Song], opt: &Options) -> Result<(Pdf, Summary), String> {
     let mut col_x = Vec::with_capacity(cols);
     let mut x = m;
     for _ in 0..cols {
-        col_x.push(x.round());
+        // exact positions: rounding here would make the gaps between columns
+        // differ by a point or two
+        col_x.push(x);
         x += col_w + GAP;
     }
 
-    let mut num_w = NUM_W;
-    let rest = (col_w - NUM_W).floor();
-    let mut title_w = (0.65 * rest).floor();
-    let artist_w = (0.35 * rest).floor();
+    // The three cells must add up to exactly one column, otherwise every
+    // column would end short of the next one and the grid would look ragged.
     let max_num = songs.iter().map(|s| s.num).max().unwrap_or(0);
+    let mut num_w = NUM_W;
+    let mut title_w = (0.65 * (col_w - NUM_W)).floor();
     if max_num > 9_999_999 {
         num_w += 2.0;
         title_w -= 2.0;
     }
+    let artist_w = col_w - num_w - title_w;
     let cells: [f32; 3] = if opt.no_artist {
         if opt.order == Order::Tna {
             [title_w + artist_w, num_w, 0.0]
@@ -499,15 +502,16 @@ pub fn render(songs: &[Song], opt: &Options) -> Result<(Pdf, Summary), String> {
                 match item {
                     Item::Letter(ch) => {
                         let mut txt = ch.to_string();
-                        pdf.fill_rect(col_x[c] - 1.0, y_top - 1.0, total_w - 2.0, ROW_H + 2.0, opt.section_bg);
+                        // same bounds as a song row, so the grid stays flush
+                        pdf.fill_rect(col_x[c], y_top, total_w, ROW_H, opt.section_bg);
                         if opt.borders != Borders::None {
-                            pdf.stroke_rect(col_x[c] - 1.0, y_top - 1.0, total_w - 2.0, ROW_H + 2.0, opt.section_color, 0.2);
+                            pdf.stroke_rect(col_x[c], y_top, total_w, ROW_H, opt.section_color, 0.2);
                         }
-                        let (fitted, sz) = truncate_to_width(&txt, sz_letter, total_w - 2.0, true);
+                        let (fitted, sz) = truncate_to_width(&txt, sz_letter, total_w - 4.0, true);
                         txt = fitted;
                         pdf.text(
                             &txt,
-                            col_x[c] - 1.0 + (total_w - 2.0) / 2.0,
+                            col_x[c] + total_w / 2.0,
                             y_top + ROW_H / 2.0 + 0.45 * sz,
                             sz,
                             opt.section_color,
@@ -699,7 +703,13 @@ mod tests {
         assert_eq!(s.page_h, 842.0);
         assert_eq!(s.rows, 39);
         assert_eq!(s.columns, 3);
-        assert_eq!(s.cells, [40.0, 91.0, 49.0]);
+        assert_eq!(s.cells[0], 40.0);
+        assert!((s.cells[1] - 92.0).abs() < 0.01);
+        assert!((s.cells[2] - 49.67).abs() < 0.01);
+        // the cells must fill the column exactly, or the grid stops lining up
+        let col_w = (597.0 - 2.0 * 18.0 - 2.0 * 8.0) / 3.0;
+        let total: f32 = s.cells.iter().sum();
+        assert!((total - col_w).abs() < 0.001, "cells {} vs column {}", total, col_w);
     }
 
     #[test]
@@ -716,7 +726,8 @@ mod tests {
         o.no_artist = true;
         let (_, s) = render(&songs, &o).unwrap();
         assert_eq!(s.cells[2], 0.0);
-        assert_eq!(s.cells[1], 140.0);
+        // number column plus the merged title/artist is one full column
+        assert!((s.cells[0] + s.cells[1] - 181.6667).abs() < 0.01);
     }
 
     #[test]
